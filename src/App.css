@@ -1,38 +1,42 @@
 .App {
+  height: auto;
+  
+}
+
+.video-background {
+  width: 100%; /* O ajusta según tus necesidades */
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.confirmar-asistencia {
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.confirmar-asistencia h2 {
+  margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.confirmar-asistencia form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.confirmar-asistencia label,
+.confirmar-asistencia select {
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.confirmar-asistencia button {
+  padding: 10px;
+  cursor: pointer;
 }
