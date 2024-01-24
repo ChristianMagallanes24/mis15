@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import videoSource from './assets/video.mp4';
 
@@ -7,22 +7,27 @@ function App() {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [confirmacion, setConfirmacion] = useState('');
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    // Configurar el video y temporizador
-    const video = document.getElementById('myVideo');
-    const timer = setTimeout(() => {
+    const video = videoRef.current;
+
+    // Función para manejar el evento de tiempo del video
+    const handleTimeUpdate = () => {
       // Mostrar la confirmación después de 43 segundos
-      setMostrarConfirmacion(true);
-
-      // Pausar el video
-      if (video) {
-        video.pause();
+      if (video.currentTime >= 43) {
+        setMostrarConfirmacion(true);
+        video.pause();  // Pausar el video
       }
-    }, 43000); // 43 segundos
+    };
 
-    // Limpiar el temporizador al desmontar el componente
-    return () => clearTimeout(timer);
+    // Agregar el evento de tiempo al video
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    // Limpiar el evento al desmontar el componente
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
   }, []);
 
   const handleNombreChange = (event) => {
@@ -45,14 +50,21 @@ function App() {
     window.open(enlaceWhatsApp, '_blank');
   };
 
+  const handlePlayPause = () => {
+    const video = videoRef.current;
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  };
+
   return (
     <div className="App">
       {/* Video */}
       <video
-        id="myVideo"
-        autoPlay
-        loop
-        muted
+        ref={videoRef}
+        controls
         playsInline
         className="video-background"
       >
