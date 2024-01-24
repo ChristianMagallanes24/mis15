@@ -9,6 +9,7 @@ function App() {
   const [confirmacion, setConfirmacion] = useState('');
 
   useEffect(() => {
+    // Mostrar confirmación después de 43 segundos
     const timer = setTimeout(() => {
       setMostrarConfirmacion(true);
     }, 43000); // 43 segundos
@@ -38,10 +39,13 @@ function App() {
 
   return (
     <div className="App">
-      <video autoPlay  className="video-background">
+      {/* Video */}
+      <video autoPlay className="video-background">
         <source src={videoSource} type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
+
+      {/* Confirmación de asistencia después de 43 segundos */}
       {mostrarConfirmacion && (
         <div className='confirmar-asistencia'>
           <h2>Confirmar Asistencia</h2>
