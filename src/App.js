@@ -9,10 +9,19 @@ function App() {
   const [confirmacion, setConfirmacion] = useState('');
 
   useEffect(() => {
+    // Configurar el video y temporizador
+    const video = document.getElementById('myVideo');
     const timer = setTimeout(() => {
+      // Mostrar la confirmación después de 43 segundos
       setMostrarConfirmacion(true);
+
+      // Pausar el video
+      if (video) {
+        video.pause();
+      }
     }, 43000); // 43 segundos
 
+    // Limpiar el temporizador al desmontar el componente
     return () => clearTimeout(timer);
   }, []);
 
@@ -39,7 +48,14 @@ function App() {
   return (
     <div className="App">
       {/* Video */}
-      <video autoPlay loop muted playsInline className="video-background">
+      <video
+        id="myVideo"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="video-background"
+      >
         <source src={videoSource} type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
