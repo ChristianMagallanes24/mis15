@@ -15,7 +15,7 @@ function App() {
     // Función para manejar el evento de tiempo del video
     const handleTimeUpdate = () => {
       // Mostrar la confirmación después de 43 segundos
-      if (video.currentTime >= 43) {
+      if (video.currentTime >= 44) {
         setMostrarConfirmacion(true);
         video.pause();  // Pausar el video
       }
