@@ -6,6 +6,8 @@ import videoSource from './assets/video.mp4';
 function App() {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const [confirmacion, setConfirmacion] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -29,19 +31,27 @@ function App() {
     setConfirmacion(event.target.value);
   };
 
+  const handleNombreChange = (event) => {
+    setNombre(event.target.value);
+  };
+
+  const handleApellidoChange = (event) => {
+    setApellido(event.target.value);
+  };
+
   const validarCampos = () => {
-    return confirmacion.trim() !== '';
+    return confirmacion.trim() !== '' && nombre.trim() !== '' && apellido.trim() !== '';
   };
 
   const handleConfirmar = () => {
     if (!validarCampos()) {
       Swal.fire({
-        title: 'Selecciona una opción',
-        text: 'Por favor, selecciona si podrás asistir o no.',
+        title: 'Campos incompletos',
+        text: 'Por favor, completa todos los campos antes de confirmar la asistencia.',
         icon: 'error',
         customClass: {
-          container: 'custom-swal-container', // Agrega tu clase personalizada aquí
-          popup: 'custom-swal-popup', // Otras clases personalizadas si es necesario
+          container: 'custom-swal-container',
+          popup: 'custom-swal-popup',
           title: 'custom-swal-title',
           content: 'custom-swal-content',
           confirmButton: 'custom-swal-confirm-button',
@@ -53,31 +63,25 @@ function App() {
 
     let tituloAlerta = '';
     let textoAlerta = '';
+    let ubicacionEvento = '';
 
     if (confirmacion === 'Si') {
       tituloAlerta = 'Por favor';
-      textoAlerta = 'Les agradeceríamos que asistan al evento vistiendo atuendo formal, a continuación confirmaremos por WhatsApp y en el mensaje tendrás la ubicación del evento, desde ya muchas gracias!';
+      textoAlerta =
+        'Les agradeceríamos que asistan al evento vistiendo atuendo formal, a continuación confirmaremos por WhatsApp y en el mensaje tendrás la ubicación del evento, desde ya muchas gracias!';
+      ubicacionEvento = 'Ubicación del evento: https://maps.app.goo.gl/v2SwcdC6ek2cUxew9\n';
     } else if (confirmacion === 'No') {
       tituloAlerta = 'No te preocupes!';
       textoAlerta = 'Recuerda que puedes volver a dar tu confirmación si cambias de opinión.';
     }
 
-    const ubicacionEvento =
-      confirmacion === 'Si' ? 'Ubicación del evento: https://maps.app.goo.gl/v2SwcdC6ek2cUxew9\n' : '';
-
-    const mensaje = `Confirmación de asistencia: ${
+    const mensaje = `Confirmación de asistencia de ${nombre} ${apellido}: ${
       confirmacion === 'Si' ? 'Sí, podré asistir' : 'No podré asistir'
     }.\n${ubicacionEvento}`;
 
-    const numeroWhatsApp = '+59897007813';
-
-    // Aseguramos que el número de teléfono esté en el formato correcto
+    const numeroWhatsApp = '+598687769';
     const numeroWhatsAppFormateado = encodeURIComponent(numeroWhatsApp);
-
-    // Codificamos el mensaje para el enlace
     const mensajeCodificado = encodeURIComponent(mensaje);
-
-    // Construimos el enlace de WhatsApp
     const enlaceWhatsApp = `https://wa.me/${numeroWhatsAppFormateado}?text=${mensajeCodificado}`;
 
     Swal.fire({
@@ -97,7 +101,7 @@ function App() {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log('Enlace WhatsApp:', enlaceWhatsApp); // Verifica el enlace en la consola
+        console.log('Enlace WhatsApp:', enlaceWhatsApp);
         window.open(enlaceWhatsApp, '_blank');
       }
     });
@@ -128,6 +132,16 @@ function App() {
         <div className="confirmar-asistencia">
           <h2>Confirmar Asistencia</h2>
           <form>
+            <label>
+              Nombre:
+              <input type="text" value={nombre} onChange={handleNombreChange} />
+            </label>
+            <br />
+            <label>
+              Apellido:
+              <input type="text" value={apellido} onChange={handleApellidoChange} />
+            </label>
+            <br />
             <label>
               Confirmación:
               <select value={confirmacion} onChange={handleConfirmacionChange}>
