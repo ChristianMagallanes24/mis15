@@ -50,10 +50,11 @@ text-align: center;
 .confirmar-asistencia button {
   padding: 12px;
   cursor: pointer;
-  background-color: #007bff; /* Cambia el color de fondo del botón */
+  background-color: #4e6617; /* Cambia el color de fondo del botón */
   color: #fff; /* Cambia el color del texto del botón */
   border: none;
   border-radius: 5px;
+  font-family: 'PT Serif', serif;
 }
 
 .confirmar-asistencia button:hover {
@@ -63,3 +64,47 @@ label{
   font-family: 'PT Serif', serif;
   color: #000000;
 }
+
+/* App.css */
+
+/* Otros estilos existentes... */
+
+
+
+.custom-swal-popup {
+  background-color: #4e6617 !important; /* Green background color */
+  font-family: 'PT Serif', serif;
+  color: #000000 !important; /* Text color */
+  font-size: 20px;
+  
+}
+
+.custom-swal-title {
+  font-family: 'PT Serif', serif;
+}
+
+.custom-swal-content {
+  font-family: 'PT Serif', serif;
+  
+}
+
+.custom-swal-confirm-button {
+  font-family: 'PT Serif', serif;
+  background: #ffe65e !important;
+  color: #000 !important;
+ 
+}
+
+.custom-swal-cancel-button {
+  font-family: 'PT Serif', serif;
+  background-color: #ffe65e;
+}
+
+
+.swal-text {
+  font-size: 16px; /* Ejemplo de estilo para el texto del mensaje */
+  line-height: 1.5; /* Ejemplo de estilo para el espaciado entre líneas */
+  font-family: 'PT Serif', serif
+}
+
+
