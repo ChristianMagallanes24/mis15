@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import videoSource from './assets/video.mp4';
+import Swal from 'sweetalert2';
 
 function App() {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
@@ -12,19 +13,15 @@ function App() {
   useEffect(() => {
     const video = videoRef.current;
 
-    // Función para manejar el evento de tiempo del video
     const handleTimeUpdate = () => {
-      // Mostrar la confirmación después de 43 segundos
       if (video.currentTime >= 44) {
         setMostrarConfirmacion(true);
-        video.pause();  // Pausar el video
+        video.pause();
       }
     };
 
-    // Agregar el evento de tiempo al video
     video.addEventListener('timeupdate', handleTimeUpdate);
 
-    // Limpiar el evento al desmontar el componente
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate);
     };
@@ -43,11 +40,25 @@ function App() {
   };
 
   const handleConfirmar = () => {
-    const mensaje = `Confirmación de asistencia de ${nombre} ${apellido}. Confirmación: ${confirmacion}`;
-    const numeroWhatsApp = '+598 98 687 769';
+    const ubicacionEvento = 'Ubicación del evento: https://maps.app.goo.gl/v2SwcdC6ek2cUxew9';
+    const mensaje = `Confirmación de asistencia de ${nombre} ${apellido}. Confirmación: ${confirmacion}. ${ubicacionEvento}`;
+    const numeroWhatsApp = '+598 97007813';
     const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
 
-    window.open(enlaceWhatsApp, '_blank');
+    // Mostrar SweetAlert antes de confirmar
+    Swal.fire({
+      title: '𝑷𝒐𝒓 𝒇𝒂𝒗𝒐𝒓',
+      text: ' , 𝒍𝒆𝒔 𝒂𝒈𝒓𝒂𝒅𝒆𝒄𝒆𝒓í𝒂𝒎𝒐𝒔 𝒒𝒖𝒆 𝒂𝒔𝒊𝒔𝒕𝒂𝒏 𝒂𝒍 𝒆𝒗𝒆𝒏𝒕𝒐 𝒗𝒊𝒔𝒕𝒊𝒆𝒏𝒅𝒐 𝒂𝒕𝒖𝒆𝒏𝒅𝒐 𝒇𝒐𝒓𝒎𝒂𝒍.',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'confirmar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      // Si el usuario hace clic en "OK", abrir enlace de WhatsApp
+      if (result.isConfirmed) {
+        window.open(enlaceWhatsApp, '_blank');
+      }
+    });
   };
 
   const handlePlayPause = () => {
@@ -59,27 +70,20 @@ function App() {
     }
   };
 
-
-
-
-
-  
   return (
     <div className="App">
-      {/* Video */}
-     <div className='video'>
-     <video
-        ref={videoRef}
-        controls
-        playsInline
-        className="video-background"
-      >
-        <source src={videoSource} type="video/mp4" />
-        Tu navegador no soporta la etiqueta de video.
-      </video>
-     </div>
+      <div className='video'>
+        <video
+          ref={videoRef}
+          controls
+          playsInline
+          className="video-background"
+        >
+          <source src={videoSource} type="video/mp4" />
+          Tu navegador no soporta la etiqueta de video.
+        </video>
+      </div>
 
-      {/* Confirmación de asistencia después de 43 segundos */}
       {mostrarConfirmacion && (
         <div className='confirmar-asistencia'>
           <h2>Confirmar Asistencia</h2>
