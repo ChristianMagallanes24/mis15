@@ -1,6 +1,7 @@
+
 .App {
-  height: 100vh; /* Ajustado para ocupar toda la altura de la ventana */
-  background-color: #f0f0f0; /* Cambia el color de fondo según tus preferencias */
+  height: 100%; /* Ajustado para ocupar toda la altura de la ventana */
+  background-color: #4e6617; /* Cambia el color de fondo según tus preferencias */
   overflow: hidden; /* Para evitar el desbordamiento del contenido */
 }
 
