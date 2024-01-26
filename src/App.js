@@ -44,7 +44,7 @@ function App() {
 
   const handleConfirmar = () => {
     const mensaje = `Confirmación de asistencia de ${nombre} ${apellido}. Confirmación: ${confirmacion}`;
-    const numeroWhatsApp = 'tu_numero_de_whatsapp';
+    const numeroWhatsApp = '+598 98 687 769';
     const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(enlaceWhatsApp, '_blank');
@@ -59,10 +59,16 @@ function App() {
     }
   };
 
+
+
+
+
+  
   return (
     <div className="App">
       {/* Video */}
-      <video
+     <div className='video'>
+     <video
         ref={videoRef}
         controls
         playsInline
@@ -71,6 +77,7 @@ function App() {
         <source src={videoSource} type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
+     </div>
 
       {/* Confirmación de asistencia después de 43 segundos */}
       {mostrarConfirmacion && (
@@ -90,7 +97,7 @@ function App() {
             <label>
               Confirmación:
               <select value={confirmacion} onChange={handleConfirmacionChange}>
-                <option value="">Seleccione...</option>
+                <option value="">Podra asistir?</option>
                 <option value="Si">Sí, asistiré</option>
                 <option value="No">No podré asistir</option>
               </select>
