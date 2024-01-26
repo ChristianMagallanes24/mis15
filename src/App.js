@@ -62,20 +62,45 @@ function App() {
       return;
     }
 
-    const ubicacionEvento = 'Ubicación del evento: https://maps.app.goo.gl/v2SwcdC6ek2cUxew9';
-    const mensaje = `Confirmación de asistencia de ${nombre} ${apellido}. Confirmación: ${confirmacion}. ${ubicacionEvento}`;
-    const numeroWhatsApp = '+598 97007813';
-    const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+    let tituloAlerta = '';
+    let textoAlerta = '';
+
+    if (confirmacion === 'Si') {
+      tituloAlerta = 'Por favor';
+      textoAlerta = 'Les agradeceríamos que asistan al evento vistiendo atuendo formal, a continuacion confirmaremos por whatsapp y en el mensaje tendras la ubicación del evento, desde ya muchas gracias!';
+    } else if (confirmacion === 'No') {
+      tituloAlerta = 'No te preocupes!';
+      textoAlerta = 'Recuerda que puedes volver a dar tu confirmación si cambias de opinión.';
+    }
+
+    const mensaje =
+      `Confirmación de asistencia: ${confirmacion === 'Si' ? 'Sí, podré asistir' : 'No podré asistir'}.\n` +
+      `Nombre y Apellido: ${nombre} ${apellido}.\n` +
+      (confirmacion === 'Si'
+        ? 'Ubicación del evento: https://maps.app.goo.gl/v2SwcdC6ek2cUxew9'
+        : '');
+
+    const numeroWhatsApp = '+59897007813';
+
+    // Aseguramos que el número de teléfono esté en el formato correcto
+    const numeroWhatsAppFormateado = encodeURIComponent(numeroWhatsApp);
+
+    // Codificamos el mensaje para el enlace
+    const mensajeCodificado = encodeURIComponent(mensaje);
+
+    // Construimos el enlace de WhatsApp
+    const enlaceWhatsApp = `https://wa.me/${numeroWhatsAppFormateado}?text=${mensajeCodificado}`;
 
     Swal.fire({
-      title: 'Por favor',
-      text: 'les agradeceriamos que asistan al evento vistiendo atuendo formal, desde ya muchas gracias!',
-      icon: 'success',
+      title: tituloAlerta,
+      text: textoAlerta,
+      icon: 'info',
       showCancelButton: true,
       confirmButtonText: 'OK',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log('Enlace WhatsApp:', enlaceWhatsApp); // Verifica el enlace en la consola
         window.open(enlaceWhatsApp, '_blank');
       }
     });
