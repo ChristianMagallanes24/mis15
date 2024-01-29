@@ -79,7 +79,7 @@ function App() {
       confirmacion === 'Si' ? 'Sí, podré asistir' : 'No podré asistir'
     }.\n${ubicacionEvento}`;
 
-    const numeroWhatsApp = '+59898687769';
+    const numeroWhatsApp = '+5998687769';
     const numeroWhatsAppFormateado = encodeURIComponent(numeroWhatsApp);
     const mensajeCodificado = encodeURIComponent(mensaje);
     const enlaceWhatsApp = `https://wa.me/${numeroWhatsAppFormateado}?text=${mensajeCodificado}`;
